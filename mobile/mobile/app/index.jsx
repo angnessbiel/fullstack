@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-//Registro
+// Registro
 function RegisterScreen({ navigation }) {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -13,46 +12,59 @@ function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const handleDobChange = (text) => {
+    if (text.length === 2 || text.length === 5) {
+      text += '/';
+    }
+    setDob(text);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Registro de Usuário</Text>
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Nome"
+          value={name}
+          onChangeText={setName}
+          placeholderTextColor="#bbb"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Sobrenome"
+          value={lastName}
+          onChangeText={setLastName}
+          placeholderTextColor="#bbb"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Data de Nascimento (DD/MM/YYYY)"
+          value={dob}
+          onChangeText={handleDobChange}
+          placeholderTextColor="#bbb"
+          maxLength={10}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+          placeholderTextColor="#bbb"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+          placeholderTextColor="#bbb"
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Nome"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Sobrenome"
-        value={lastName}
-        onChangeText={setLastName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Data de Nascimento (DD/MM/YYYY)"
-        value={dob}
-        onChangeText={setDob}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Registrar</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Registrar</Text>
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={styles.linkText}>Já tem uma conta? Faça login</Text>
@@ -61,45 +73,45 @@ function RegisterScreen({ navigation }) {
   );
 }
 
-//Login
+// Login
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+          placeholderTextColor="#bbb"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+          placeholderTextColor="#bbb"
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Entrar</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Entrar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 export default function App() {
   return (
-    <NavigationContainer>
       <Stack.Navigator initialRouteName="Register">
         <Stack.Screen name="Register" component={RegisterScreen} options={{ title: 'Registro' }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }} />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 }
 
@@ -107,35 +119,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#808080',
     padding: 16,
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: 'center',
+  formContainer: {
+    width: '85%',
+    backgroundColor: '#404040',
+    padding: 16,
+    borderRadius: 10,
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    height: 50,
+    backgroundColor: '#505050',
+    color: '#fff',
+    borderRadius: 8,
+    paddingHorizontal: 16,
     marginBottom: 12,
-    paddingHorizontal: 8,
-    borderRadius: 4,
   },
   button: {
-    backgroundColor: '#007BFF',
-    padding: 10,
-    borderRadius: 4,
-    marginBottom: 12,
+    backgroundColor: '#606060',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginTop: 16,
   },
   buttonText: {
     color: '#fff',
+    fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
   },
   linkText: {
-    color: '#007BFF',
-    textAlign: 'center',
+    color: '#ccc',
     marginTop: 16,
+    textAlign: 'center',
   },
 });
