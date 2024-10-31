@@ -1,5 +1,4 @@
 import bcryptjs from "bcryptjs"
-import { User } from "../db.js"
 import jsonwebtoken from "jsonwebtoken"
 
 
@@ -25,7 +24,7 @@ const registro = async (req, res) => {
         res.send('Você deve preencher todos os campos')
         return
     }
-    const userExiste = await User.findAll({ where: {email:email}}) 
+    const userExiste = await User.findOne({ where: {email:email}}) 
     if (!userExiste){
         res.send('usuario nao existe')
         return
