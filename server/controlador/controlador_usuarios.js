@@ -15,20 +15,20 @@ const LocUser = async (req, res) => {
     res.send(OneUser)
 }
 
-const DeletUser = async (req, res) => {
-    const { email } = req.body
+const DeleteUser = async (req, res) => {
+    const { email } = req.body;
 
     if (!email) {
-        res.send('Insira o email do usuário na qual você gostaria de deletar.');
-        return
+        res.send('Insira o email do usuário que você gostaria de deletar.');
+        return;
     }
-    
-    const ByeUser = await User.destroy({ where: { email: email } })
+
+    const ByeUser = await User.destroy({ where: { email: email } });
     if (ByeUser) {
         res.send("Usuário deletado");
     } else {
         res.send("Usuário não encontrado.");
     }
-}
+};
 
-export { Todos, LocUser, DeletUser }
+export { Todos, LocUser, DeleteUser };

@@ -1,10 +1,10 @@
 import express from "express"
-import { GetUsers, GetUser, DeleteUser } from "../controller/userControl.js"
+import { Todos, LocUser, DeleteUser } from "../controlador/controlador_usuarios.js";
 
 const UserRoutes = express.Router()
 
-UserRoutes.get('/todos', GetUsers)
-UserRoutes.get('/usuario', GetUser)
+UserRoutes.get('/todos', Todos)
+UserRoutes.get('/usuario', LocUser)
 UserRoutes.delete('/delete', DeleteUser)
 
 export { UserRoutes }
